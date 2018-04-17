@@ -4,16 +4,16 @@
 
 #### You will need: Docker, docker-machine, docker-compose, a clone of this repo, and the woa13.csv file, available here: https://drive.google.com/open?id=1vTjUtVComxNLjOGj2iIL1069qWV27_Fe placed in watermassmodelling2/web 
 
-  1) start docker-machine:
+  1) Start docker-machine:
   
           docker-machine start
 
-  2) configure docker-machine:
+  2) Configure docker-machine:
   
           docker-machine env
           eval $(docker-machine env)
 
-  3) navigate into the clone (where the docker.yml file lives)
+  3) Navigate into the clone (where the docker.yml file lives)
 
 
   4) Use docker-compose to build the container (go get a coffee, learn to play a song on the guitar...whatever, this will take a bit):
@@ -50,11 +50,11 @@
 
 #### For a more satisfying experience, you need to copy the data from woa13.csv into the database.
 
-  8) copy file from local directory to container:
+  8) Copy file from local directory to container:
   
           docker cp woa13.csv watermassmodelling2_postgres_1:./woa13.csv
 
-  9) exec into container postgres instance:
+  9) Exec into container postgres instance:
   
           docker exec -ti watermassmodelling2_postgres_1 psql -U postgres
           
@@ -65,13 +65,13 @@
 
           postgres=#
 
-  10) copy data from csv file to table for specific column list:
+  10) Copy data from csv file to table for specific column list:
   
           \copy woa13s  (index ,  station ,  longitude ,  latitude , depth , temperature , salinity ,  oxygen,  oxygen_saturation , aou , phosphate  , nitrate ) FROM 'woa13.csv' CSV HEADER;
           
          will return: COPY 3306468
 
-  11) quit postgres:
+  11) Quit postgres:
   
           \q
 
