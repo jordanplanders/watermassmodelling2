@@ -23,12 +23,24 @@
   5) Fire up the images: 
   
           docker-compose up -d
+          
+        will return:
+        
+          Creating watermassmodelling2_data_1 ... done
+          Creating watermassmodelling2_postgres_1 ... done
+          Creating watermassmodelling2_web_1      ... done
+          Creating watermassmodelling2_nginx_1    ... done
+          
 
 #### At this juncture, it may seem like you'll be able to visit something or go somewhere, but that is not so. 
 
   6) Create the database:
   
           docker-compose run web /usr/local/bin/python create_db.py
+        will return:
+          
+          Starting watermassmodelling2_data_1 ... done
+          Starting watermassmodelling2_postgres_1 ... done
 
 #### Now you can ask for the ip address and give it a preliminary and relatively unsatisfying test.
 
@@ -40,26 +52,29 @@
 
   8) copy file from local directory to container:
   
-          docker cp woa13.csv odm2_postgres_1:./woa13.csv
+          docker cp woa13.csv watermassmodelling2_postgres_1:./woa13.csv
 
   9) exec into container postgres instance:
   
-          docker exec -ti odm2_postgres_1 psql -U postgres
+          docker exec -ti watermassmodelling2_postgres_1 psql -U postgres
+          
+        will return:
+        
+          psql (10.3 (Debian 10.3-1.pgdg90+1))
+          Type "help" for help.
+
+          postgres=#
 
   10) copy data from csv file to table for specific column list:
   
           \copy woa13s  (index ,  station ,  longitude ,  latitude , depth , temperature , salinity ,  oxygen,  oxygen_saturation , aou , phosphate  , nitrate ) FROM 'woa13.csv' CSV HEADER;
+          
+         will return: COPY 3306468
 
   11) quit postgres:
   
           \q
-  
-#### With data now in the database, rebuild the container.
 
-  12) rebuild:
-  
-          docker-compose build
- 
 #### And once more navigate to the ip address (or reload it--never hurts)
 
 
