@@ -60,7 +60,7 @@
   
           docker-compose build
  
-# And once more navigate to the ip address (or reload it--never hurts)
+#### And once more navigate to the ip address (or reload it--never hurts)
 
 
 
