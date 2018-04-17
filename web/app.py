@@ -74,7 +74,7 @@ def miniform():
 
 from chem_ocean import Build_Map as bm
 from chem_ocean import Plot_Raw2 as pr
-from chem_ocean import GetData as gd
+# from chem_ocean import GetData as gd
 from chem_ocean import plan_modelcomp as md
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
