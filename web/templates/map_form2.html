@@ -1,0 +1,206 @@
+{% extends "_base.html" %}
+    {% block css %}
+
+    {% endblock %}
+{% block content %}
+    <h1>Map Form</h1>
+    <form action="/map_form2" method="post">
+
+<div class="container">
+<div class="row-fluid">
+      <div class = "row-fluid">
+        <div class="col col-md-12">
+  <div class="form-group">
+    <label for="traj_type">Trajectory Type</label>
+    <select class="form-control" name="traj_type">
+      <option title="Cross Section">plan</option>
+      <option title="Depth Slice (East-West line)">EWsection</option>
+      <option title="Depth Slice (North-South line)">NSsection</option>
+    </select>
+  </div>
+</div>
+</div>
+
+ <div class="row-fluid">
+    <div class="col col-md-4" align="center">
+  <button type="button" class="btn btn-info" color="green" data-toggle="collapse" data-target="#model">model</button>
+    </div>
+        <div class="col col-md-4" align="center">
+  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#raw">raw</button>
+    </div>   
+    <div class="col col-md-4" align="center">
+  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#map">map</button>
+    </div>   
+  </div>
+<br>  
+<br>
+
+
+  <div id="map" class="collapse">
+    <div class = "row-fluid">
+        <div class="col col-md-12">
+  <div class="form-group">
+    <label for="raw_model_map">Plot Type</label>
+    <select class="form-control" name="raw_model_map">
+      <option title="Map">map</option>
+    </select>
+  </div>
+</div>
+</div>
+</div>
+
+  <div id="model" class="collapse">
+    <div class = "row-fluid">
+        <div class="col col-md-12">
+        <div class="form-group">
+          <label for="modelraw">Model only, or model and raw comparison:</label>
+          <select class="form-control" name="modelraw">
+            <option title=""></option>
+            <option title="Model">model</option>
+            <option title="Model and Raw">model_raw</option>
+          </select>
+        </div>
+        </div>
+      </div>
+
+    <div class = "row-fluid">
+        <div class="col col-md-12">
+        <div class="form-group">
+          <label for="sil_coef">Silhouette Coefficient:</label>
+          <select class="form-control" name="sil_coef">
+            <option title=""></option>
+            <option title="Yes">yes</option>
+            <option title="No">no</option>
+          </select>
+        </div>
+        </div>
+      </div>
+
+<div class = "row-fluid">
+   <div class="col col-md-12">
+    <div class="form-group">
+    <label for="model_opts">Select a model:</label>
+      <select multiple class="form-control" name="model_opts">
+        <option title="Mini Batch KMeans">mini_batch_kmeans</option>
+        <option title="Agglomerative Clustering">agglomerative_clustering</option>
+        <option title="Spectral Clustering">spectral_clustering</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class = "row-fluid">
+   <div class="col col-md-12">
+    <div class="form-group">
+    <label for="tracer">Select 2+ tracers:</label>
+      <select multiple class="form-control" name="tracer">
+        <option title="Phosphate">phosphate</option>
+        <option title="Oxygen">oxygen</option>
+        <option title="Salinity">salinity</option>
+      </select>
+    </div>
+  </div>
+</div>
+</div>
+
+
+  <div id="raw" class="collapse">
+    <div class = "row-fluid">
+        <div class="col col-md-12">
+          <div class="form-group">
+            <label for="raw_model_map">Plot Type</label>
+            <select class="form-control" name="raw_model_map">
+              <option title="Raw">raw</option>
+            </select>
+          </div>
+        </div>
+    </div>
+      
+  <div class = "row-fluid">
+   <div class="col col-md-12">  
+    <div class="form-group">
+        <label for="tracer">Select a tracer:</label>
+          <select multiple class="form-control" name="tracer">
+            <option title="Phosphate">phosphate</option>
+            <option title="Oxygen">oxygen</option>
+            <option title="Salinity">salinity</option>
+          </select>
+    </div>
+  </div>
+</div>
+</div>
+
+        <hr>
+<div class="row-fluid">
+    <div class="row-fluid">
+        <div class="col col-md-12">
+            <img src= {{ url_for( 'static', filename='world_map.png') }} width=100%>
+        </div>
+    </div>
+    <div class = "row-fluid">
+        <div class="col col-md-6">
+            <label for="lat_n">Lat (N):</label>
+            <input name="lat_n" class="form-control" type="text" value="30" required>
+        </div>
+        <div class="col col-md-6">
+            <label for="lat_s">Lat (S):</label>
+            <input name="lat_s" class="form-control" type="text" value="-30" required>
+        </div>
+        <div class="col col-md-12">
+        <p> <b>lat_n = lat_s for E-W Sections</b></p>
+      </div>
+    </div>
+
+    <div class = "row-fluid">
+        <div class="col col-md-6">
+            <label for="lon_w">Lon (W):</label>
+            <input name="lon_w" class="form-control" type="text" value="-40" required>
+        </div>
+        <div class="col col-md-6">
+            <label for="lon_e">Lon (W):</label>
+            <input name="lon_e" class="form-control" type="text" value="0" required>
+        </div>
+        <div class="col col-md-12">
+        <p> <b>lon_w =lon_e for N-S Sections</b> </p> <br>
+        </div>
+    </div>
+
+      <div class="row-fluid">
+        <div class="col col-md-12">
+            <label for="depth">Depth:</label>
+            <input name="depth" class="form-control" type="text"><br>
+      </div>
+    </div>
+  </div>
+
+
+      <div class="row-fluid">
+        <div class="col col-md-6">
+            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
+        </div>
+        <div class="col col-md-6"><br>
+        </div>
+      </div>
+
+  </form>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

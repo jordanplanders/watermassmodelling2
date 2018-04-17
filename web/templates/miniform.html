@@ -1,0 +1,11 @@
+{% extends "_base.html" %}
+
+{% block content %}
+    <h1>Greeting!</h1>
+<form action="/miniform" method="POST">
+  <div class="form-group">
+    <input name="hi" class="form-control input-lg" type="text" placeholder="Enter a message" required>
+  </div>
+  <input type="submit" class="btn btn-primary btn-lg btn-block" value="Roger">
+</form>
+{% endblock %}

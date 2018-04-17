@@ -1,0 +1,79 @@
+
+
+{% extends "_base.html" %}
+
+{% block content %}
+
+ <div class="row-fluid">
+    	<div class="col col-md-6" align="center">
+			Latitude: ({{metadata.lat_n }}, {{metadata.lat_s }})
+    	</div>
+    	<div class="col col-md-6" align="center">
+    		Longitude: ({{metadata.lon_w }}, {{metadata.lon_e }})
+    	</div>
+</div>
+	<br>
+<div class="row-fluid">
+        <div class="col col-md-12">
+	    {% if metadata['traj_type'] == 'plan' %}
+    	Depth: {{metadata.depth }}m
+    	{% endif %}
+    	</div>
+ </div>
+
+{% if tracerfigs|length == 0 %}
+
+    <div class="row-fluid">
+        <div class="col col-md-12">
+       		<img img src= "data:image/png;base64, {{ plot_url }}" width=100%>
+       		<br>
+    	</div>
+  	</div>
+
+{% else %} 
+	{% if metadata['modelraw'] == '' %}
+		 <div class="row-fluid">
+		 		{% for tracer in tracerfigs %}
+		        <div class="col col-md-12">       		
+		        	<img img src= "data:image/png;base64, {{ tracer.tracerfig }}" width=100%>
+		       		<br>
+		    	Tracer: {{ tracer.tracername }}
+		        </div>
+		        {% endfor %}
+		</div>
+
+	{% else %}
+		 {% if metadata['modelraw'] == 'model_raw' %}
+			<div class="row-fluid">
+			        <div class="col col-md-4">
+			       		<img img src= "data:image/png;base64, {{ plot_url }}" width=100%>
+			       		<br>
+			    	Model: {{ metadata.model_opts }}
+			    	</div>
+
+		 		{% for tracer in tracerfigs %}
+		        <div class="col col-md-4">       		
+		        	<img img src= "data:image/png;base64, {{ tracer.tracerfig }}" width=100%>
+		       		<br>
+		    	Tracer: {{ tracer.tracername }}
+		        </div>
+		        {% endfor %}
+		    </div>
+
+		{% else %}
+		    <div class="row-fluid">
+		        <div class="col col-md-12">
+		       		<img img src= "data:image/png;base64, {{ plot_url }}" width=100%>
+		       		<br>
+		    	Model: {{ metadata.model_opts }}
+		    	</div>
+		 	</div>
+
+	  	{% endif %}
+
+	{% endif %}
+
+{% endif %}
+
+{% endblock %}
+
