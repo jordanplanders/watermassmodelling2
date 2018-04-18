@@ -26,7 +26,7 @@ def index():
         db.session.add(post)
         db.session.commit()
     posts = Post.query.order_by(Post.date_posted.desc()).all()
-    flash(request.method)
+    # flash(request.method)
     return render_template('index.html', posts=posts)
 
 
@@ -51,9 +51,9 @@ def gallery():
 @app.route('/miniform', methods=['GET', 'POST'])
 def miniform():
     if request.method == 'POST':
-        flash(request.method)
+        # flash(request.method)
         form = request.form
-        flash(form)
+        # flash(form)
         posts = [
         {
             'tracer': {'tracername': 'Oxygen'},
@@ -74,7 +74,6 @@ def miniform():
 
 from chem_ocean import Build_Map as bm
 from chem_ocean import Plot_Raw2 as pr
-# from chem_ocean import GetData as gd
 from chem_ocean import plan_modelcomp as md
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
@@ -93,14 +92,14 @@ def map_form2():
     if request.method == 'POST':
         form = request.form
         tracer_figs=[]
-        flash(form)
+        # flash(form)
         img = io.BytesIO()
         plot_url = True
         
         tracers = form.getlist('tracer') 
-        flash(tracers)
+        # flash(tracers)
         if len(tracers) <1:
-            flash('map')
+            # flash('map')
             fig, ax1 = plt.subplots(nrows=1, ncols=1, figsize=(13, 7), facecolor='w')
             _map, _fig, ax = bm.build_map('y', 'merc', float(form['lat_s']), float(form['lat_n']), float(form['lon_w']), float(form['lon_e']), 'c', fig, ax1, 111, 'lrbt')
             plot_url = makefig(_fig)
@@ -114,6 +113,7 @@ def map_form2():
                 lonLine =-15
 
             for tracer in tracers:
+                plot_url2 = True
                 _fig = pr.plotRaw(float(form['lat_s']), float(form['lat_n']), float(form['lon_w']), float(form['lon_e']), [tracer], form['traj_type'], depth = _depth)#, lonTraj = (float(form['lon_w']), float(form['lon_e'])), latLimits = (float(form['lat_s']), float(form['lat_n'])))
                 _fig.savefig(img, format='png')
                 img.seek(0)
@@ -127,7 +127,7 @@ def map_form2():
                 _fig.savefig(img, format='png')
                 img.seek(0)
                 plot_url = base64.b64encode(img.getvalue()).decode('ascii')
-                flash(form['model_opts'])
+                # flash(form['model_opts'])
 
         return render_template('map.html', title = 'Map', metadata=form, tracerfigs=tracer_figs, plot_url=plot_url)#, plot_url2=plot_url2)
 
