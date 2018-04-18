@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Flask on Docker</title>
+    <title>Watermass Modelling</title>
     <!-- meta -->
     <meta name="description" content="">
     <meta name="author" content="">
@@ -15,10 +15,10 @@
 
   </head>
   <body>
+    <div class="container-fluid" width=85%>
       <div> ODVapp: <a href="{{ url_for('index') }}">Home</a>
                     <a href="{{ url_for('gallery') }}">Gallery</a>
                     <a href="{{ url_for('map_form2') }}">Map Form</a>
-                    <a href="{{ url_for('miniform') }}">test mini form</a>
       </div>
       <hr>
         {% with messages = get_flashed_messages() %}
@@ -30,8 +30,8 @@
         </ul>
         {% endif %}
         {% endwith %}
-
-    <div class="container">
+    </div>
+    <div class="container-fluid" width=85%>
       <br>
       <!-- child template -->
       {% block content %}{% endblock %}
