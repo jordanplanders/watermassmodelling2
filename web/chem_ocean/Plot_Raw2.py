@@ -255,7 +255,7 @@ def plotRaw(minLat, maxLat, minLon, maxLon, _in_var_names, _sliceType, **kwargs)
     if len(_feat_data.shape)>1:
         print( 'Please limit feature data to one variable')
     else:
-        fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(12, 8), facecolor='w')
+        fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(17, 17), facecolor='w')
         if _basemap:
             _basemap, fig, ax = bm.build_map('y', 'merc', minLat, maxLat, minLon, maxLon, 'c', fig, ax, 111, 'lb')
             x_coord,y_coord = _basemap(_x, _y)
