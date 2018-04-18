@@ -5,27 +5,33 @@
 {% block content %}
 
  <div class="row-fluid">
+ 	{% if metadata['traj_type'] == 'plan' %}
+ 	<div class="col col-md-4" align="center">
+			Latitude: ({{metadata.lat_n }}, {{metadata.lat_s }})
+    	</div>
+    	<div class="col col-md-4" align="center">
+    		Longitude: ({{metadata.lon_w }}, {{metadata.lon_e }})
+    	</div>
+    	<div class="col col-md-4" align="center">
+    		Depth: {{metadata.depth }}m
+    	</div>
+    	
+ 	{% else %}
     	<div class="col col-md-6" align="center">
 			Latitude: ({{metadata.lat_n }}, {{metadata.lat_s }})
     	</div>
     	<div class="col col-md-6" align="center">
     		Longitude: ({{metadata.lon_w }}, {{metadata.lon_e }})
     	</div>
+    {% endif %}
 </div>
 	<br>
-<div class="row-fluid">
-        <div class="col col-md-12">
-	    {% if metadata['traj_type'] == 'plan' %}
-    	Depth: {{metadata.depth }}m
-    	{% endif %}
-    	</div>
- </div>
 
 {% if tracerfigs|length == 0 %}
 
     <div class="row-fluid">
-        <div class="col col-md-12">
-       		<img img src= "data:image/png;base64, {{ plot_url }}" width=100%>
+        <div class="col col-md-12" align="center">
+       		<img src= "data:image/png;base64, {{ plot_url }}"  width=85%>
        		<br>
     	</div>
   	</div>
@@ -34,36 +40,71 @@
 	{% if metadata['modelraw'] == '' %}
 		 <div class="row-fluid">
 		 		{% for tracer in tracerfigs %}
-		        <div class="col col-md-12">       		
-		        	<img img src= "data:image/png;base64, {{ tracer.tracerfig }}" width=100%>
-		       		<br>
-		    	Tracer: {{ tracer.tracername }}
-		        </div>
+		 			{% if tracerfigs|length == 1 %}
+				        <div class="col col-md-12" align="center">       		
+				        	<img img src= "data:image/png;base64, {{ tracer.tracerfig }}" width=85%>
+				       		<br>
+				    	Tracer: {{ tracer.tracername }}
+				        </div>
+				    {% endif %}
+				    {% if tracerfigs|length == 2 %}
+				        <div class="col col-md-6" align="center">       		
+				        	<img img src= "data:image/png;base64, {{ tracer.tracerfig }}" width=85%>
+				       		<br>
+				    	Tracer: {{ tracer.tracername }}
+				        </div>
+				    {% endif %}
+				    {% if tracerfigs|length == 3 %}
+				        <div class="col col-md-4" align="center">       		
+				        	<img img src= "data:image/png;base64, {{ tracer.tracerfig }}" width=85%>
+				       		<br>
+				    	Tracer: {{ tracer.tracername }}
+				        </div>
+				    {% endif %}
 		        {% endfor %}
 		</div>
 
 	{% else %}
 		 {% if metadata['modelraw'] == 'model_raw' %}
 			<div class="row-fluid">
-			        <div class="col col-md-4">
-			       		<img img src= "data:image/png;base64, {{ plot_url }}" width=100%>
+				{% if tracerfigs|length == 2 %}
+			        <div class="col col-md-4" align="center">
+			       		<img src= "data:image/png;base64, {{ plot_url }}" width=85%>
 			       		<br>
 			    	Model: {{ metadata.model_opts }}
 			    	</div>
-
-		 		{% for tracer in tracerfigs %}
-		        <div class="col col-md-4">       		
-		        	<img img src= "data:image/png;base64, {{ tracer.tracerfig }}" width=100%>
-		       		<br>
-		    	Tracer: {{ tracer.tracername }}
-		        </div>
-		        {% endfor %}
-		    </div>
+			    	{% for tracer in tracerfigs %}
+				        <div class="col col-md-4" align="center">       		
+				        	<img img src= "data:image/png;base64, {{ tracer.tracerfig }}" width=85%>
+				       		<br>
+				    	Tracer: {{ tracer.tracername }}
+				        </div>
+				     {% endfor %}
+			    {% endif %}
+			</div>
+			    {% if tracerfigs|length == 3 %}
+			    <div class="row-fluid">
+			    	<div class="col col-md-12" align="center">
+			       		<img src= "data:image/png;base64, {{ plot_url }}" width=75%>
+			       		<br>
+			    	Model: {{ metadata.model_opts }}
+			    	</div>
+				</div>
+				<div class="row-fluid">
+			    	{% for tracer in tracerfigs %}
+				        <div class="col col-md-4" align="center">       		
+				        	<img img src= "data:image/png;base64, {{ tracer.tracerfig }}" width=95%>
+				       		<br>
+				    	Tracer: {{ tracer.tracername }}
+				        </div>
+				     {% endfor %}
+				</div>
+				{% endif %}
 
 		{% else %}
 		    <div class="row-fluid">
-		        <div class="col col-md-12">
-		       		<img img src= "data:image/png;base64, {{ plot_url }}" width=100%>
+		        <div class="col col-md-12" align="center">
+		       		<img src= "data:image/png;base64, {{ plot_url }}"  width=85%>
 		       		<br>
 		    	Model: {{ metadata.model_opts }}
 		    	</div>
